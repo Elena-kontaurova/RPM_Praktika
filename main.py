@@ -34,7 +34,7 @@ async def cancel_handler(callback_query: CallbackQuery, state: FSMContext):
 @router.message(Anketa.name)
 async def set_name_by_anketa_handler(msg: Message, state: FSMContext):
     await state.update_data(name=msg.text)
-    await state.set_data(Anketa.age)
+    await state.set_state(Anketa.age)
     markup = InlineKeyboardMarkup(inline_keyboard=[[
         InlineKeyboardButton(text='Назад', callback_data='set_name_anketa'),
         InlineKeyboardButton(text='Отмена', callback_data='cancel_anketa'),]])
@@ -77,7 +77,7 @@ async def set_age_by_anketa_handler(msg: Message, state: FSMContext):
     await state.clear()
     
 
-@router.message(Command('Start'))
+@router.message(Command('start'))
 async def start_handler(msg: Message):
     await bot.set_my_commands([
         BotCommand(command='start', description='Запуск бота'),
