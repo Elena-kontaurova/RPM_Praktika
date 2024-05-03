@@ -4,7 +4,7 @@ from aiogram.filters import Command
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 from states.anketa import Anketa
-from keyboards.anketa import *
+from keyboards.anketa import kb_anketa_by_gender, kb_anketa_cancel, kb_anketa_cancel_and_back
 
 router = Router()
 
@@ -12,7 +12,7 @@ router = Router()
 async def anketa_handler(msg: Message, state: FSMContext):
     '''Метод - обработчик команды anketa. '''
     await state.set_state(Anketa.name)
-    await msg.answer('Введите Ваше имя', reply_markup= kb_anketa_cansel)
+    await msg.answer('Введите Ваше имя', reply_markup= kb_anketa_cancel)
 
 
 @router.callback_query(F.data == 'cancel_anketa')
@@ -76,6 +76,6 @@ async def set_gender_anketa_handler(callback_query: CallbackQuery, state: FSMCon
 
 
 @router.message(Anketa.gender)
-async def set_age_by_anketa_handler(msg: Message, state: FSMContext):
+async def set_age_by_anketa_one_handler(msg: Message):
     ''' Метод - обрабатывает ввод пола'''
     await msg.answer('Нужно пол выбрать кнопкой')
