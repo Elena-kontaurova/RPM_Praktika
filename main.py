@@ -42,8 +42,8 @@ async def cancel_handler(callback_query: CallbackQuery, state: FSMContext):
 @router.message(Anketa.name)
 async def set_name_by_anketa_handler(msg: Message, state: FSMContext):
     ''' Метод - обработки сообщения, в котором пользователь должен 
-указать своё имя. Предоствляет кнопки 'Назад', и 'Отмена'. 
-И после, пользователь долджен ввести свой возраст'''
+указать своё имя. Предоставляет кнопки 'Назад', и 'Отмена'. 
+И после, пользователь должен ввести свой возраст'''
     await state.update_data(name=msg.text)
     await state.set_state(Anketa.age)
     markup = InlineKeyboardMarkup(inline_keyboard=[[
@@ -56,7 +56,7 @@ async def set_name_by_anketa_handler(msg: Message, state: FSMContext):
 async def set_name_anketa_handler(callback_query: CallbackQuery, state: FSMContext):
     ''' Метод используется для обработки нажатия пользователем кнопки 
 "Установить имя". При нажатии на данную кнопку, будет вызван метод, который 
-поможет пользователю установить свое имя в анкете и перецти дальше. '''
+поможет пользователю установить свое имя в анкете и перейти дальше. '''
     await anketa_handler(callback_query.message, state)
 
 
@@ -65,7 +65,7 @@ async def set_age_by_anketa_handler(msg: Message, state: FSMContext):
     ''' Метод используется для обработки ввода возраста пользоватлелем. 
 Если возраст будет введен некорректно, пользователю будет отправлено 
 сообщение об ошибке и предложит ввести возраст снова. После успешного 
-ввода возраста, будет предложенно ввести пол. '''
+ввода возраста, будет предложено ввести пол. '''
     try:
         await state.update_data(age=int(msg.text))
     except ValueError:
@@ -88,7 +88,7 @@ async def set_age_by_anketa_handler(msg: Message, state: FSMContext):
 async def set_age_anketa_handler(callback_query: CallbackQuery, state: FSMContext):
     ''' Метод - обработчик callback-запросов. Используется для 
 перехода к установке возраста, при заполнении анкеты. Также есть 
-кнопки "Назад" и "Отмена". Метод обеспечивает удобное упровление процессами. '''
+кнопки "Назад" и "Отмена". Метод обеспечивает удобное управление процессами. '''
     await state.set_state(Anketa.age)
     markup = InlineKeyboardMarkup(inline_keyboard=[[
         InlineKeyboardButton(text = 'Назад', callback_data='set_name_anketa'),
@@ -102,7 +102,7 @@ async def set_age_by_anketa_two_handler(msg: Message, state: FSMContext):
 пола. При получении сообщения от пользователя с данными о поле, 
 метод обнавляет данные состояния, записывая в них значения поля gender. 
 Затем метод отправляет сообщение пользователю со строковым представлением данных. 
-И в концен, метод очищает состояние, для подготовке его к новому запросу. '''
+И в концен, метод очищает состояние, для подготовки его к новому запросу. '''
     await state.update_data(gender=msg.text)
     await msg.answer(str(await state.get_data()))
     await state.clear()
@@ -130,7 +130,7 @@ async def start_handler(msg: Message):
 @router.callback_query(F.data == 'next')
 async def next_handler(callback_query: CallbackQuery):
     ''' Метод - обрабатыевает next. Когда пользователь нажимает "Вперед" 
-на предыдущей странице, метод страбатывает. Внутри метода, стоздается объект
+на предыдущей странице, метод страбатывает. Внутри метода, создается объект
 с кнопкой "Назад",которая будет отображатся на следующей странице. 
 Происходит изменение теста на "Страница 2", и обновление клавиатуры. '''
     inline_markup = InlineKeyboardMarkup(inline_keyboard=[
@@ -145,7 +145,7 @@ async def next_handler(callback_query: CallbackQuery):
 async def back_handler(callback_query: CallbackQuery):
     ''' Метод для обработки нажатия кномпи "Назад". 
 Метод удаляет текущее сообщение, на которое пользователь нажал "Назад", 
-и отправляет новое сообщение с текстом "Страница 1", и кнопкой "Впредед". '''
+и отправляет новое сообщение с текстом "Страница 1", и кнопкой "Вперёд". '''
     inline_markup = InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text='Вперед', callback_data='next')]
     ])
@@ -156,7 +156,7 @@ async def back_handler(callback_query: CallbackQuery):
 
 
 async def main():
-    ''' Метод запускает процесс опроса, входящих обнов для бота. 
+    ''' Метод запускает процесс опроса, входящих обновлений для бота. 
 Основаная точка входа и запуска бота. '''
     await dp.start_polling(bot)
 
