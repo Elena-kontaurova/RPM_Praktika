@@ -4,7 +4,7 @@ import asyncio
 from aiogram import Bot, Dispatcher
 from handlers import include_routers
 
-bot = Bot(token='7108007861:AAH3T-LI-ruypcxJUHuaSJ9aD5qfI62up2Q')
+bot = Bot(token='6873870024:AAHVnZXANpYSIZOg-jcQ0Yd8ZcHF1Ebxvv0')
 dp = Dispatcher()
 
 async def main():
