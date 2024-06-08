@@ -3,8 +3,8 @@ import asyncio
 
 from aiogram import Bot, Dispatcher
 from handlers import include_routers
-
-bot = Bot(token='6873870024:AAHVnZXANpYSIZOg-jcQ0Yd8ZcHF1Ebxvv0')
+from tok import TOKEN
+bot = Bot(token=TOKEN)
 dp = Dispatcher()
 
 async def main():
